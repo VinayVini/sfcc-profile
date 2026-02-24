@@ -1,795 +1,704 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vinay · Senior SFCC Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg:       #08090c;
-      --surface:  #10121a;
-      --border:   #1e2230;
-      --accent:   #e8c840;
-      --accent2:  #4fd1c5;
-      --text:     #e2e4ed;
-      --muted:    #6b7280;
-      --tag-bg:   #151824;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinay M D — Senior SFCC Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --text: #94a3b8;
+    --text-bright: #e2e8f0;
+    --heading: #cdd6f4;
+    --accent: #38bdf8;
+    --accent-dim: rgba(56, 189, 248, 0.1);
+    --font: 'Source Sans 3', -apple-system, sans-serif;
+  }
 
-    html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    /* ── NOISE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-    }
+  a { color: var(--text-bright); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--accent); }
 
-    /* ── GLOW ── */
-    .glow-top {
-      position: fixed;
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 700px;
-      height: 400px;
-      background: radial-gradient(ellipse, rgba(232,200,64,0.08) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 80px;
+  }
 
-    /* ── LAYOUT ── */
-    .wrapper {
+  /* LEFT SIDEBAR (sticky) */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 420px;
+    min-width: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 96px 0;
+  }
+
+  .sidebar h1 {
+    font-size: 46px;
+    font-weight: 700;
+    color: var(--heading);
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+
+  .sidebar .tagline {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--text-bright);
+    margin-top: 12px;
+  }
+
+  .sidebar .intro {
+    margin-top: 16px;
+    font-size: 15px;
+    color: var(--text);
+    max-width: 340px;
+  }
+
+  /* NAV */
+  .sidebar nav { margin-top: 56px; }
+
+  .sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text);
+    transition: all 0.25s;
+  }
+
+  .sidebar nav a::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--text);
+    transition: all 0.25s;
+  }
+
+  .sidebar nav a:hover,
+  .sidebar nav a.active {
+    color: var(--text-bright);
+  }
+
+  .sidebar nav a:hover::before,
+  .sidebar nav a.active::before {
+    width: 64px;
+    background: var(--text-bright);
+  }
+
+  /* SOCIAL LINKS */
+  .socials {
+    display: flex;
+    gap: 20px;
+    margin-top: auto;
+  }
+
+  .socials a {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .socials a:hover { color: var(--accent); }
+
+  /* MAIN CONTENT */
+  .main {
+    flex: 1;
+    padding: 96px 0;
+  }
+
+  section { margin-bottom: 100px; }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-bright);
+    margin-bottom: 40px;
+    display: none;
+  }
+
+  /* ABOUT */
+  .about p {
+    margin-bottom: 16px;
+    font-size: 15.5px;
+  }
+
+  .about p strong,
+  .about p a {
+    color: var(--text-bright);
+    font-weight: 500;
+  }
+
+  /* STATS ROW */
+  .stats {
+    display: flex;
+    gap: 40px;
+    margin: 40px 0;
+    padding: 24px 0;
+    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  }
+
+  .stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--text);
+    margin-top: 4px;
+  }
+
+  /* EXPERIENCE CARDS */
+  .exp-card {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: background 0.2s;
+  }
+
+  .exp-card:hover {
+    background: var(--accent-dim);
+  }
+
+  .exp-period {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    padding-top: 4px;
+    white-space: nowrap;
+  }
+
+  .exp-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 2px;
+  }
+
+  .exp-card h3 .company {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .exp-role {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .exp-card p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent);
+  }
+
+  /* PROJECT / FEATURED */
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    transition: all 0.2s;
+  }
+
+  .project-card:hover {
+    background: var(--accent-dim);
+    border-color: rgba(56, 189, 248, 0.2);
+  }
+
+  .project-card h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-bright);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .project-card h3 .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+  }
+
+  .project-card p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .project-stats {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .project-stats span { color: var(--text-bright); font-weight: 600; }
+
+  .project-links {
+    display: flex;
+    gap: 16px;
+    margin-top: 4px;
+  }
+
+  .project-links a {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* SKILLS GRID */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .skill-group h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-bright);
+    margin-bottom: 12px;
+  }
+
+  .skill-group ul {
+    list-style: none;
+  }
+
+  .skill-group li {
+    font-size: 14px;
+    padding: 4px 0;
+    color: var(--text);
+  }
+
+  /* EDUCATION */
+  .edu-item {
+    padding: 16px 24px;
+    margin-bottom: 8px;
+  }
+
+  .edu-item h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-bright);
+  }
+
+  .edu-item p {
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  /* AWARDS */
+  .award-item {
+    padding: 8px 0;
+    font-size: 14px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .award-year {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    min-width: 48px;
+  }
+
+  /* CONTACT */
+  .contact-box {
+    padding: 32px;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 163, 184, 0.1);
+  }
+
+  .contact-box h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 12px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .contact-links a {
+    font-size: 15px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .container { flex-direction: column; gap: 0; }
+    .sidebar {
       position: relative;
-      z-index: 1;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 28px;
+      height: auto;
+      width: 100%;
+      min-width: 100%;
+      padding: 48px 0 0;
     }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-      background: rgba(8,9,12,0.82);
-    }
-    nav .inner {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 14px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    nav .logo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-    }
-    nav a {
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.2s;
-    }
-    nav a:hover { color: var(--text); }
-    nav .links { display: flex; gap: 24px; }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 90px 0 60px;
-      animation: fadeUp 0.7s ease both;
-    }
-    .hero-eyebrow {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      line-height: 1;
-      letter-spacing: -0.03em;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-    .hero h1 span { color: var(--accent); }
-    .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 28px;
-      letter-spacing: 0.01em;
-    }
-    .hero-desc {
-      max-width: 560px;
-      font-size: 1rem;
-      color: #9ca3af;
-      margin-bottom: 36px;
-    }
-    .hero-cta {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 22px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-    .btn-primary {
-      background: var(--accent);
-      color: #08090c;
-      border: 1px solid var(--accent);
-    }
-    .btn-primary:hover { background: #f0d050; transform: translateY(-1px); }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { border-color: var(--muted); transform: translateY(-1px); }
-
-    .stats-row {
-      display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-top: 56px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-    .stat-item {}
-    .stat-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      color: #fff;
-    }
-    .stat-num span { color: var(--accent); }
-    .stat-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    /* ── SECTION ── */
-    section {
-      padding: 70px 0;
-      border-top: 1px solid var(--border);
-      animation: fadeUp 0.6s ease both;
-    }
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .section-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.6rem;
-      color: #fff;
-      margin-bottom: 36px;
-    }
-
-    /* ── FEATURED EXTENSION ── */
-    .ext-card {
-      position: relative;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 32px;
-      overflow: hidden;
-    }
-    .ext-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-    }
-    .ext-card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-    .ext-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(232,200,64,0.12);
-      border: 1px solid rgba(232,200,64,0.3);
-      border-radius: 20px;
-      padding: 4px 12px;
-      font-size: 0.72rem;
-      color: var(--accent);
-      font-family: 'Space Mono', monospace;
-      letter-spacing: 0.05em;
-    }
-    .ext-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-    .ext-sub {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-    .ext-desc {
-      font-size: 0.92rem;
-      color: #9ca3af;
-      margin-bottom: 20px;
-      line-height: 1.7;
-    }
-    .ext-metrics {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-    .ext-metric {
-      display: flex;
-      flex-direction: column;
-    }
-    .ext-metric-val {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: var(--accent2);
-    }
-    .ext-metric-key {
-      font-size: 0.72rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .ext-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .tag {
-      background: var(--tag-bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 3px 10px;
-      font-size: 0.72rem;
-      font-family: 'Space Mono', monospace;
-      color: var(--muted);
-    }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 14px;
-    }
-    .skill-group {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 18px;
-    }
-    .skill-group-name {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 10px;
-    }
-    .skill-list {
-      list-style: none;
-      font-size: 0.82rem;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .skill-list li::before {
-      content: '→ ';
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
-    }
-
-    /* ── TIMELINE ── */
-    .timeline { position: relative; }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      top: 6px; bottom: 6px;
-      left: 7px;
-      width: 1px;
-      background: var(--border);
-    }
-    .tl-item {
-      position: relative;
-      padding-left: 36px;
-      margin-bottom: 44px;
-    }
-    .tl-item:last-child { margin-bottom: 0; }
-    .tl-dot {
-      position: absolute;
-      left: 0; top: 6px;
-      width: 15px; height: 15px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 2px solid var(--border);
-      transition: border-color 0.2s;
-    }
-    .tl-item:hover .tl-dot { border-color: var(--accent); }
-    .tl-meta {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 4px;
-    }
-    .tl-company {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: #fff;
-    }
-    .tl-period {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-    }
-    .tl-role {
-      font-size: 0.82rem;
-      color: var(--accent);
-      font-weight: 500;
-      margin-bottom: 10px;
-    }
-    .tl-body {
-      font-size: 0.88rem;
-      color: #8a93a8;
-      line-height: 1.7;
-      margin-bottom: 10px;
-    }
-    .tl-env {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-    }
-    .tl-env span { color: var(--accent2); }
-
-    /* ── EDUCATION ── */
-    .edu-grid { display: grid; gap: 16px; }
-    .edu-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 22px 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    .edu-icon {
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .edu-degree {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: #fff;
-      margin-bottom: 3px;
-    }
-    .edu-school {
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    /* ── CONTACT ── */
-    .contact-bar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 28px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .contact-line {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-    }
-    .contact-line span { color: var(--accent); }
-    .contact-email {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 0;
-      text-align: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      nav .links { gap: 14px; }
-      .stats-row { gap: 24px; }
-      .contact-bar { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
+    .sidebar nav { display: none; }
+    .socials { margin-top: 24px; }
+    .main { padding: 48px 0; }
+    .section-label { display: block; }
+    .exp-card { grid-template-columns: 1fr; gap: 8px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .stats { gap: 24px; flex-wrap: wrap; }
+  }
+</style>
 </head>
 <body>
-  <div class="glow-top"></div>
 
-  <!-- NAV -->
-  <nav>
-    <div class="inner">
-      <div class="logo">⚡ vinayvini</div>
-      <div class="links">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
+<div class="container">
+  <!-- LEFT SIDEBAR -->
+  <header class="sidebar">
+    <div>
+      <h1>Vinay M D</h1>
+      <p class="tagline">Senior SFCC Developer & Solutions Architect</p>
+      <p class="intro">I build scalable e-commerce solutions and developer tools for the Salesforce Commerce Cloud ecosystem.</p>
+
+      <nav>
+        <a href="#about" class="active">About</a>
+        <a href="#project">Featured Project</a>
         <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
         <a href="#contact">Contact</a>
-      </div>
+      </nav>
     </div>
-  </nav>
 
-  <div class="wrapper">
+    <div class="socials">
+      <a href="mailto:vinaymd93@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/vinayprince" target="_blank">LinkedIn</a>
+      <a href="https://github.com/vinayvini" target="_blank">GitHub</a>
+    </div>
+  </header>
 
-    <!-- HERO -->
-    <header class="hero" id="about">
-      <p class="hero-eyebrow">// Available for senior roles &amp; freelance</p>
-      <h1>Vinay<span>.</span></h1>
-      <p class="hero-title">Senior SFCC Developer &amp; Solutions Architect</p>
-      <p class="hero-desc">
-        8 years in software development · 6 years specialising in Salesforce B2C Commerce (SFCC/SFRA) · 
-        Building tools, integrations, and architecture for global e-commerce brands.
-      </p>
-      <div class="hero-cta">
-        <a href="#contact" class="btn btn-primary">📬 Get in Touch</a>
-        <a href="https://chromewebstore.google.com/detail/boigmfmlfpjlmigfinoemakfeeilgmok" target="_blank" class="btn btn-ghost">⚡ My Chrome Extension</a>
-      </div>
+  <!-- MAIN CONTENT -->
+  <main class="main">
 
-      <div class="stats-row">
-        <div class="stat-item">
-          <div class="stat-num">8<span>+</span></div>
+    <!-- ABOUT -->
+    <section id="about" class="about">
+      <div class="section-label">About</div>
+      <p>With <strong>10+ years</strong> in software development and deep specialization in <strong>Salesforce Commerce Cloud (SFCC/SFRA)</strong>, I architect and build robust e-commerce platforms for global brands. I've led implementations across <strong>40+ sites</strong>, managed integrations with payment gateways, OMS systems, and fraud detection services, and mentored teams of developers through complex platform migrations.</p>
+
+      <p>Currently working as a <strong>Technical Architect</strong> at <a href="#">Bounteous (Accolite)</a>, I'm responsible for end-to-end solution design on multi-site SFCC implementations — from architecture decisions and third-party integrations to code quality and production deployments.</p>
+
+      <p>Beyond my day job, I'm passionate about building <strong>developer tools</strong> for the SFCC ecosystem. I created and shipped a Chrome extension that's now used by <strong>165+ developers and merchants</strong> daily, filling a gap left by Salesforce's deprecated Storefront Toolkit.</p>
+
+      <div class="stats">
+        <div>
+          <div class="stat-number">10+</div>
           <div class="stat-label">Years Experience</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">6<span>+</span></div>
-          <div class="stat-label">Years SFCC / SFRA</div>
+        <div>
+          <div class="stat-number">40+</div>
+          <div class="stat-label">Sites Delivered</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">165<span>+</span></div>
+        <div>
+          <div class="stat-number">165+</div>
           <div class="stat-label">Extension Users</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">10<span>+</span></div>
-          <div class="stat-label">Client Brands</div>
-        </div>
-      </div>
-    </header>
-
-    <!-- FEATURED PROJECT -->
-    <section id="projects">
-      <p class="section-label">// Featured Project</p>
-      <h2 class="section-title">What I've Built</h2>
-
-      <div class="ext-card">
-        <div class="ext-card-header">
-          <div>
-            <div class="ext-title">⚡ SFCC BM QuickLinks</div>
-            <div class="ext-sub">Chrome Extension · Published on Chrome Web Store</div>
-          </div>
-          <div class="ext-badge">🚀 Live · 165+ Users</div>
-        </div>
-
-        <p class="ext-desc">
-          A productivity Chrome extension built from scratch for Salesforce Commerce Cloud developers and merchants. 
-          It surfaces instant quick-links to Business Manager modules, storefront environments, and developer shortcuts — 
-          all configurable to your specific SFCC instance. Designed to fill the gap left by Salesforce's deprecated Storefront Toolkit, 
-          SFCC BM QuickLinks is rapidly becoming the go-to developer dashboard for SFCC teams.
-        </p>
-
-        <div class="ext-metrics">
-          <div class="ext-metric">
-            <span class="ext-metric-val">165+</span>
-            <span class="ext-metric-key">Active Users</span>
-          </div>
-          <div class="ext-metric">
-            <span class="ext-metric-val">0</span>
-            <span class="ext-metric-key">Data Collected</span>
-          </div>
-          <div class="ext-metric">
-            <span class="ext-metric-val">✓</span>
-            <span class="ext-metric-key">Chrome Web Store</span>
-          </div>
-        </div>
-
-        <div class="ext-tags">
-          <span class="tag">chrome.storage.sync</span>
-          <span class="tag">SFCC / SFRA</span>
-          <span class="tag">Business Manager</span>
-          <span class="tag">Manifest V3</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">Developer Tooling</span>
-        </div>
-
-        <div style="margin-top: 22px; display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="https://chromewebstore.google.com/detail/boigmfmlfpjlmigfinoemakfeeilgmok" target="_blank" class="btn btn-primary" style="font-size:0.8rem; padding:9px 18px;">Install on Chrome</a>
-          <a href="https://vinayvini.github.io/sfcc-bm-quicklinks-privacy/" target="_blank" class="btn btn-ghost" style="font-size:0.8rem; padding:9px 18px;">Privacy Policy</a>
+        <div>
+          <div class="stat-number">5k+</div>
+          <div class="stat-label">Code Reviews</div>
         </div>
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills">
-      <p class="section-label">// Technical Stack</p>
-      <h2 class="section-title">Skills & Expertise</h2>
+    <!-- FEATURED PROJECT -->
+    <section id="project">
+      <div class="section-label">Featured Project</div>
+      <div class="project-card">
+        <h3>SFCC BM QuickLinks <span class="badge">Live</span></h3>
+        <p>A productivity Chrome extension built from scratch for Salesforce Commerce Cloud developers and merchants. Surfaces instant quick-links to Business Manager modules, storefront environments, and developer shortcuts — all configurable per SFCC instance. Designed to fill the gap left by Salesforce's deprecated Storefront Toolkit, it's rapidly becoming the go-to developer dashboard for SFCC teams.</p>
+        <div class="project-stats">
+          <div><span>165+</span> active users</div>
+          <div><span>Zero</span> data collected</div>
+          <div><span>Chrome Web Store</span> published</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Chrome Extension</span>
+          <span class="tag">Manifest V3</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">chrome.storage.sync</span>
+          <span class="tag">SFCC / SFRA</span>
+          <span class="tag">Developer Tooling</span>
+        </div>
+        <div class="project-links">
+          <a href="https://chromewebstore.google.com/detail/boigmfmlfpjlmigfinoemakfeeilgmok" target="_blank">Install on Chrome →</a>
+          <a href="https://vinayvini.github.io/sfcc-bm-quicklinks-privacy/" target="_blank">Privacy Policy</a>
+        </div>
+      </div>
 
-      <div class="skills-grid">
-        <div class="skill-group">
-          <div class="skill-group-name">Core Platform</div>
-          <ul class="skill-list">
-            <li>SFCC / SFRA</li>
-            <li>Site Genesis</li>
-            <li>Business Manager</li>
-            <li>OCAPI / SCAPI</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-name">Development</div>
-          <ul class="skill-list">
-            <li>JavaScript / Node.js</li>
-            <li>jQuery / Ajax</li>
-            <li>ISML Templates</li>
-            <li>HTML / CSS</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-name">Integrations</div>
-          <ul class="skill-list">
-            <li>Adyen / Klarna</li>
-            <li>PayPal / Apple Pay</li>
-            <li>OMS / Returns</li>
-            <li>MuleSoft / PIM</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-name">SFCC Framework</div>
-          <ul class="skill-list">
-            <li>Jobs Framework</li>
-            <li>Service Framework</li>
-            <li>BM Configurations</li>
-            <li>Promotions / Coupons</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-name">Testing</div>
-          <ul class="skill-list">
-            <li>Chai / Mocha</li>
-            <li>Unit Test Cases</li>
-            <li>Code Reviews</li>
-          </ul>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-name">Exploring</div>
-          <ul class="skill-list">
-            <li>React / Next.js</li>
-            <li>Chrome Extension APIs</li>
-            <li>REST APIs</li>
-          </ul>
+      <div class="project-card" style="margin-top: 16px;">
+        <h3>SFCC Sandbox Dashboard</h3>
+        <p>Built a web-based sandbox start/stop dashboard using SCAPI technology, giving developers self-service control over sandbox environments. Achieved <strong style="color: var(--text-bright);">76% infrastructure cost reduction</strong> by enabling on-demand sandbox management.</p>
+        <div class="tags">
+          <span class="tag">SCAPI</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">Cost Optimization</span>
         </div>
       </div>
     </section>
 
     <!-- EXPERIENCE -->
     <section id="experience">
-      <p class="section-label">// Work History</p>
-      <h2 class="section-title">Professional Experience</h2>
+      <div class="section-label">Experience</div>
 
-      <div class="timeline">
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-meta">
-            <span class="tl-company">Rossignol (Ross)</span>
-            <span class="tl-period">Jul 2022 – Feb 2023</span>
+      <div class="exp-card">
+        <div class="exp-period">2023 — Present</div>
+        <div>
+          <h3>Technical Architect <span class="company">· Bounteous (Accolite)</span></h3>
+          <p>Leading SFRA implementation and architecture for Petmeds across 3 sites with a team of 45+. Designed architecture for Signifyd fraud detection, managed Elavon/Afterpay/PayPal/Apple Pay integrations, built sandbox management dashboard, created the SFCC BM QuickLinks Chrome extension, and led SFCC OMS integration. Responsible for code quality across 5,000+ reviews.</p>
+          <div class="tags">
+            <span class="tag">SFRA</span>
+            <span class="tag">OCAPI</span>
+            <span class="tag">SCAPI</span>
+            <span class="tag">OMS</span>
+            <span class="tag">Elavon</span>
+            <span class="tag">Signifyd</span>
           </div>
-          <div class="tl-role">Development Lead</div>
-          <p class="tl-body">
-            Led end-to-end requirement analysis, technical documentation, and work estimations. Managed third-party integrations 
-            including Adyen, Klarna, Apple Pay, OMS order flows, returns &amp; refunds, and Clutch gift card integration. 
-            Designed architecture for the Clutch cartridge from scratch and created custom API endpoints for customer group management. 
-            Authored unit tests using Chai &amp; Mocha.
-          </p>
-          <div class="tl-env"><span>SFRA</span> · ISML · JavaScript · jQuery · Ajax</div>
         </div>
+      </div>
 
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-meta">
-            <span class="tl-company">Wolverine Worldwide (WWW)</span>
-            <span class="tl-period">Apr 2021 – Jul 2022</span>
+      <div class="exp-card">
+        <div class="exp-period">2022 — 2023</div>
+        <div>
+          <h3>Development Lead <span class="company">· AIOPS Groups</span></h3>
+          <p>Led end-to-end SFRA implementation for Rossignol across 12 sites/locales. Complete platform migration from Magento to SFCC. Designed Clutch integration architecture from scratch, managed Adyen/Klarna/Apple Pay integrations, and built custom API endpoints for customer group management.</p>
+          <div class="tags">
+            <span class="tag">SFRA</span>
+            <span class="tag">Adyen</span>
+            <span class="tag">Klarna</span>
+            <span class="tag">Multi-site</span>
           </div>
-          <div class="tl-role">Senior Lead / Technical Lead</div>
-          <p class="tl-body">
-            Designed architecture for post-order customer registration flow, loyalty rewards points system, and full OMS returns 
-            flow from scratch. Worked on MuleSoft architecture for data exchange between PIM system and Salesforce. Managed integrations 
-            with Adyen, Klarna, PayPal Express, and customer feedback systems. Mentored and trained junior developers on the SFRA platform.
-          </p>
-          <div class="tl-env"><span>SFRA / SFCC</span> · ISML · JavaScript · jQuery · Ajax · Eclipse</div>
         </div>
+      </div>
 
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-meta">
-            <span class="tl-company">Rocky Brands</span>
-            <span class="tl-period">Jun 2018 – Apr 2021</span>
+      <div class="exp-card">
+        <div class="exp-period">2021 — 2022</div>
+        <div>
+          <h3>Senior Lead / Tech Lead <span class="company">· Brillio Technologies</span></h3>
+          <p>Managed SFRA implementations for Wolverine Worldwide across 43 brand sites including Cat Footwear, Hush Puppies, Harley Davidson, Merrell, Saucony, and Sperry. Designed loyalty rewards architecture, OMS returns flow, and MuleSoft data exchange between PIM and Salesforce. Mentored junior developers — 3 achieved SFCC certification.</p>
+          <div class="tags">
+            <span class="tag">SFRA</span>
+            <span class="tag">MuleSoft</span>
+            <span class="tag">OMS</span>
+            <span class="tag">Loyalty</span>
           </div>
-          <div class="tl-role">Technical Lead &amp; Backend Developer</div>
-          <p class="tl-body">
-            Developed HubSpot cartridge from scratch — full design, build, and unit testing. Managed integrations with Apple Pay, 
-            Klarna, PayPal Express, DIS, and HubSpot. Led code reviews, builds, and replication processes.
-          </p>
-          <div class="tl-env"><span>SFRA</span> · ISML · JavaScript · jQuery · Ajax · Eclipse</div>
         </div>
+      </div>
 
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-meta">
-            <span class="tl-company">Johnny's Selected Seeds</span>
-            <span class="tl-period">Nov 2020 – Apr 2021</span>
+      <div class="exp-card">
+        <div class="exp-period">2018 — 2021</div>
+        <div>
+          <h3>Technical Lead <span class="company">· PFS Web</span></h3>
+          <p>Led SFRA development across multiple brands: Rocky Brands (6 sites), Johnny's Selected Seeds, Pendleton Woolen Mills, Pureology, and Gore. Built the HubSpot cartridge from scratch. Managed integrations with CyberSource, NetSuite OMS, AvaTax, Solupay, and PayPal across projects.</p>
+          <div class="tags">
+            <span class="tag">SFRA</span>
+            <span class="tag">HubSpot</span>
+            <span class="tag">CyberSource</span>
+            <span class="tag">NetSuite</span>
           </div>
-          <div class="tl-role">Technical Lead</div>
-          <p class="tl-body">
-            Managed CyberSource v19.5.2 and PayPal Express Checkout integrations. Led technical documentation, development, 
-            and client interfacing.
-          </p>
-          <div class="tl-env"><span>SFCC</span> · ISML · JavaScript · jQuery · Ajax</div>
         </div>
+      </div>
 
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-meta">
-            <span class="tl-company">Pendleton Woolen Mills</span>
-            <span class="tl-period">Mar 2019 – Nov 2020</span>
-          </div>
-          <div class="tl-role">Technical Lead</div>
-          <p class="tl-body">
-            Managed integrations with NetSuite OMS, AvaTax, Solupay, Google Tag Manager, and PayPal. 
-            Led architecture design documentation and client requirements.
-          </p>
-          <div class="tl-env"><span>SFCC</span> · ISML · JavaScript · jQuery · Ajax</div>
+      <div class="exp-card">
+        <div class="exp-period">2015 — 2018</div>
+        <div>
+          <h3>Graphic Automation Developer <span class="company">· Avery Dennison</span></h3>
+          <p>Started career in automation development before transitioning into the Salesforce Commerce Cloud ecosystem.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-meta">
-            <span class="tl-company">Pureology &amp; Pureology-Pro</span>
-            <span class="tl-period">Jul 2018 – Jun 2019</span>
-          </div>
-          <div class="tl-role">Technical Lead</div>
-          <p class="tl-body">
-            Code reviews, builds, and replication management. Collaborated with team on technical issues and delivery.
-          </p>
-          <div class="tl-env"><span>SFCC</span> · ISML · JavaScript · jQuery · Ajax</div>
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-label">Skills</div>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h4>Core Platform</h4>
+          <ul>
+            <li>SFCC / SFRA / Site Genesis</li>
+            <li>Business Manager</li>
+            <li>OCAPI & SCAPI REST APIs</li>
+            <li>Jobs & Service Framework</li>
+          </ul>
         </div>
-
-        <div class="tl-item">
-          <div class="tl-dot"></div>
-          <div class="tl-meta">
-            <span class="tl-company">Gore</span>
-            <span class="tl-period">May 2018 – Jul 2018</span>
-          </div>
-          <div class="tl-role">Team Member</div>
-          <p class="tl-body">
-            Implemented Google Tag Manager and managed build and code replication processes.
-          </p>
-          <div class="tl-env"><span>SFCC</span> · ISML · JavaScript · jQuery · Ajax</div>
+        <div class="skill-group">
+          <h4>Development</h4>
+          <ul>
+            <li>JavaScript / Node.js</li>
+            <li>ISML Templates</li>
+            <li>jQuery / Ajax</li>
+            <li>HTML / CSS</li>
+          </ul>
         </div>
-
+        <div class="skill-group">
+          <h4>Integrations</h4>
+          <ul>
+            <li>Elavon / Adyen / CyberSource</li>
+            <li>PayPal / Apple Pay / Klarna / Affirm</li>
+            <li>Signifyd Fraud Detection</li>
+            <li>OMS / MuleSoft / NetSuite</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h4>Tools & Testing</h4>
+          <ul>
+            <li>Chai & Mocha Unit Testing</li>
+            <li>Chrome Extension (Manifest V3)</li>
+            <li>Git / Build Suite</li>
+            <li>React (exploring)</li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <!-- EDUCATION -->
     <section id="education">
-      <p class="section-label">// Academic Background</p>
-      <h2 class="section-title">Education</h2>
-      <div class="edu-grid">
-        <div class="edu-card">
-          <div class="edu-icon">🎓</div>
-          <div>
-            <div class="edu-degree">Master of Computer Application (MCA) · Computer Science</div>
-            <div class="edu-school">ISBM Chhattisgarh University</div>
-          </div>
+      <div class="section-label">Education & Awards</div>
+      <div class="edu-item">
+        <h3>Master of Computer Application (MCA)</h3>
+        <p>ISBM Chhattisgarh University · 2022</p>
+      </div>
+      <div class="edu-item">
+        <h3>Bachelor of Computer Application (BCA)</h3>
+        <p>Davanagere University · 2014</p>
+      </div>
+
+      <div style="margin-top: 32px;">
+        <h4 style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-bright); margin-bottom: 16px; padding-left: 24px;">Awards</h4>
+        <div class="award-item" style="padding-left: 24px;">
+          <span class="award-year">2025</span>
+          <span>Zero-bug production release appreciation</span>
         </div>
-        <div class="edu-card">
-          <div class="edu-icon">📘</div>
-          <div>
-            <div class="edu-degree">Bachelor of Computer Application (BCA) · Computer Science</div>
-            <div class="edu-school">Davanagere University</div>
-          </div>
+        <div class="award-item" style="padding-left: 24px;">
+          <span class="award-year">2024</span>
+          <span>Client appreciation for SFCC OMS integration (Petmeds)</span>
+        </div>
+        <div class="award-item" style="padding-left: 24px;">
+          <span class="award-year">2022</span>
+          <span>Brillian of the Quarter — Brillio Technologies</span>
+        </div>
+        <div class="award-item" style="padding-left: 24px;">
+          <span class="award-year">2021</span>
+          <span>2× Brillian of the Month — Brillio Technologies</span>
+        </div>
+        <div class="award-item" style="padding-left: 24px;">
+          <span class="award-year">2019</span>
+          <span>Best SFCC Developer of the Year — PFS Web</span>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" style="border-top: none; padding-top: 0;">
-      <div class="contact-bar">
-        <div>
-          <div class="contact-line">Let's work together<span>.</span></div>
-          <div class="contact-email">vinaymd93@gmail.com</div>
+    <section id="contact">
+      <div class="section-label">Contact</div>
+      <div class="contact-box">
+        <h3>Let's connect.</h3>
+        <p>I'm open to senior SFCC roles, consulting, and freelance opportunities. Whether you need architecture guidance, complex integrations, or a full platform build — I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a href="mailto:vinaymd93@gmail.com">vinaymd93@gmail.com →</a>
+          <a href="https://www.linkedin.com/in/vinayprince" target="_blank">LinkedIn →</a>
+          <a href="tel:+919738660106">+91 9738660106</a>
         </div>
-        <a href="mailto:vinaymd93@gmail.com" class="btn btn-primary">Send Email →</a>
       </div>
     </section>
 
-  </div>
+    <footer style="padding: 24px 0; font-size: 13px; color: var(--text); border-top: 1px solid rgba(148,163,184,0.1);">
+      Built with HTML & hosted on GitHub Pages
+    </footer>
+  </main>
+</div>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="wrapper">
-      © 2026 Vinay · Built with HTML &amp; hosted on GitHub Pages ·
-      <a href="https://vinayvini.github.io/sfcc-bm-quicklinks-privacy/" style="color: var(--accent); text-decoration: none;">⚡ Extension Privacy Policy</a>
-    </div>
-  </footer>
+<!-- SCROLL SPY -->
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sidebar nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const active = document.querySelector(`.sidebar nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(section => observer.observe(section));
+</script>
 
 </body>
 </html>
