@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vinay · Senior SFCC Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #08090c;
+      --surface:  #10121a;
+      --border:   #1e2230;
+      --accent:   #e8c840;
+      --accent2:  #4fd1c5;
+      --text:     #e2e4ed;
+      --muted:    #6b7280;
+      --tag-bg:   #151824;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── GLOW ── */
+    .glow-top {
+      position: fixed;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(232,200,64,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── LAYOUT ── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,9,12,0.82);
+    }
+    nav .inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    nav a {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+    nav .links { display: flex; gap: 24px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 90px 0 60px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 28px;
+      letter-spacing: 0.01em;
+    }
+    .hero-desc {
+      max-width: 560px;
+      font-size: 1rem;
+      color: #9ca3af;
+      margin-bottom: 36px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #08090c;
+      border: 1px solid var(--accent);
+    }
+    .btn-primary:hover { background: #f0d050; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--muted); transform: translateY(-1px); }
+
+    .stats-row {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 70px 0;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.6s ease both;
+    }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 36px;
+    }
+
+    /* ── FEATURED EXTENSION ── */
+    .ext-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      overflow: hidden;
+    }
+    .ext-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .ext-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .ext-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(232,200,64,0.12);
+      border: 1px solid rgba(232,200,64,0.3);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+    .ext-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .ext-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .ext-desc {
+      font-size: 0.92rem;
+      color: #9ca3af;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+    .ext-metrics {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .ext-metric {
+      display: flex;
+      flex-direction: column;
+    }
+    .ext-metric-val {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: var(--accent2);
+    }
+    .ext-metric-key {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .ext-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 0.72rem;
+      font-family: 'Space Mono', monospace;
+      color: var(--muted);
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .skill-group-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+    }
+    .skill-list {
+      list-style: none;
+      font-size: 0.82rem;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .skill-list li::before {
+      content: '→ ';
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 6px; bottom: 6px;
+      left: 7px;
+      width: 1px;
+      background: var(--border);
+    }
+    .tl-item {
+      position: relative;
+      padding-left: 36px;
+      margin-bottom: 44px;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: 0; top: 6px;
+      width: 15px; height: 15px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .tl-item:hover .tl-dot { border-color: var(--accent); }
+    .tl-meta {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .tl-company {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+    }
+    .tl-period {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .tl-role {
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .tl-body {
+      font-size: 0.88rem;
+      color: #8a93a8;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .tl-env {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+    .tl-env span { color: var(--accent2); }
+
+    /* ── EDUCATION ── */
+    .edu-grid { display: grid; gap: 16px; }
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .edu-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .edu-degree {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+    .edu-school {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* ── CONTACT ── */
+    .contact-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .contact-line {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .contact-line span { color: var(--accent); }
+    .contact-email {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav .links { gap: 14px; }
+      .stats-row { gap: 24px; }
+      .contact-bar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-top"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="inner">
+      <div class="logo">⚡ vinayvini</div>
+      <div class="links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrapper">
+
+    <!-- HERO -->
+    <header class="hero" id="about">
+      <p class="hero-eyebrow">// Available for senior roles &amp; freelance</p>
+      <h1>Vinay<span>.</span></h1>
+      <p class="hero-title">Senior SFCC Developer &amp; Solutions Architect</p>
+      <p class="hero-desc">
+        8 years in software development · 6 years specialising in Salesforce B2C Commerce (SFCC/SFRA) · 
+        Building tools, integrations, and architecture for global e-commerce brands.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">📬 Get in Touch</a>
+        <a href="https://chromewebstore.google.com/detail/boigmfmlfpjlmigfinoemakfeeilgmok" target="_blank" class="btn btn-ghost">⚡ My Chrome Extension</a>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num">8<span>+</span></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">6<span>+</span></div>
+          <div class="stat-label">Years SFCC / SFRA</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">165<span>+</span></div>
+          <div class="stat-label">Extension Users</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">10<span>+</span></div>
+          <div class="stat-label">Client Brands</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- FEATURED PROJECT -->
+    <section id="projects">
+      <p class="section-label">// Featured Project</p>
+      <h2 class="section-title">What I've Built</h2>
+
+      <div class="ext-card">
+        <div class="ext-card-header">
+          <div>
+            <div class="ext-title">⚡ SFCC BM QuickLinks</div>
+            <div class="ext-sub">Chrome Extension · Published on Chrome Web Store</div>
+          </div>
+          <div class="ext-badge">🚀 Live · 165+ Users</div>
+        </div>
+
+        <p class="ext-desc">
+          A productivity Chrome extension built from scratch for Salesforce Commerce Cloud developers and merchants. 
+          It surfaces instant quick-links to Business Manager modules, storefront environments, and developer shortcuts — 
+          all configurable to your specific SFCC instance. Designed to fill the gap left by Salesforce's deprecated Storefront Toolkit, 
+          SFCC BM QuickLinks is rapidly becoming the go-to developer dashboard for SFCC teams.
+        </p>
+
+        <div class="ext-metrics">
+          <div class="ext-metric">
+            <span class="ext-metric-val">165+</span>
+            <span class="ext-metric-key">Active Users</span>
+          </div>
+          <div class="ext-metric">
+            <span class="ext-metric-val">0</span>
+            <span class="ext-metric-key">Data Collected</span>
+          </div>
+          <div class="ext-metric">
+            <span class="ext-metric-val">✓</span>
+            <span class="ext-metric-key">Chrome Web Store</span>
+          </div>
+        </div>
+
+        <div class="ext-tags">
+          <span class="tag">chrome.storage.sync</span>
+          <span class="tag">SFCC / SFRA</span>
+          <span class="tag">Business Manager</span>
+          <span class="tag">Manifest V3</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Developer Tooling</span>
+        </div>
+
+        <div style="margin-top: 22px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="https://chromewebstore.google.com/detail/boigmfmlfpjlmigfinoemakfeeilgmok" target="_blank" class="btn btn-primary" style="font-size:0.8rem; padding:9px 18px;">Install on Chrome</a>
+          <a href="https://vinayvini.github.io/sfcc-bm-quicklinks-privacy/" target="_blank" class="btn btn-ghost" style="font-size:0.8rem; padding:9px 18px;">Privacy Policy</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <p class="section-label">// Technical Stack</p>
+      <h2 class="section-title">Skills & Expertise</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-name">Core Platform</div>
+          <ul class="skill-list">
+            <li>SFCC / SFRA</li>
+            <li>Site Genesis</li>
+            <li>Business Manager</li>
+            <li>OCAPI / SCAPI</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Development</div>
+          <ul class="skill-list">
+            <li>JavaScript / Node.js</li>
+            <li>jQuery / Ajax</li>
+            <li>ISML Templates</li>
+            <li>HTML / CSS</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Integrations</div>
+          <ul class="skill-list">
+            <li>Adyen / Klarna</li>
+            <li>PayPal / Apple Pay</li>
+            <li>OMS / Returns</li>
+            <li>MuleSoft / PIM</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">SFCC Framework</div>
+          <ul class="skill-list">
+            <li>Jobs Framework</li>
+            <li>Service Framework</li>
+            <li>BM Configurations</li>
+            <li>Promotions / Coupons</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Testing</div>
+          <ul class="skill-list">
+            <li>Chai / Mocha</li>
+            <li>Unit Test Cases</li>
+            <li>Code Reviews</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Exploring</div>
+          <ul class="skill-list">
+            <li>React / Next.js</li>
+            <li>Chrome Extension APIs</li>
+            <li>REST APIs</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <p class="section-label">// Work History</p>
+      <h2 class="section-title">Professional Experience</h2>
+
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-meta">
+            <span class="tl-company">Rossignol (Ross)</span>
+            <span class="tl-period">Jul 2022 – Feb 2023</span>
+          </div>
+          <div class="tl-role">Development Lead</div>
+          <p class="tl-body">
+            Led end-to-end requirement analysis, technical documentation, and work estimations. Managed third-party integrations 
+            including Adyen, Klarna, Apple Pay, OMS order flows, returns &amp; refunds, and Clutch gift card integration. 
+            Designed architecture for the Clutch cartridge from scratch and created custom API endpoints for customer group management. 
+            Authored unit tests using Chai &amp; Mocha.
+          </p>
+          <div class="tl-env"><span>SFRA</span> · ISML · JavaScript · jQuery · Ajax</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-meta">
+            <span class="tl-company">Wolverine Worldwide (WWW)</span>
+            <span class="tl-period">Apr 2021 – Jul 2022</span>
+          </div>
+          <div class="tl-role">Senior Lead / Technical Lead</div>
+          <p class="tl-body">
+            Designed architecture for post-order customer registration flow, loyalty rewards points system, and full OMS returns 
+            flow from scratch. Worked on MuleSoft architecture for data exchange between PIM system and Salesforce. Managed integrations 
+            with Adyen, Klarna, PayPal Express, and customer feedback systems. Mentored and trained junior developers on the SFRA platform.
+          </p>
+          <div class="tl-env"><span>SFRA / SFCC</span> · ISML · JavaScript · jQuery · Ajax · Eclipse</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-meta">
+            <span class="tl-company">Rocky Brands</span>
+            <span class="tl-period">Jun 2018 – Apr 2021</span>
+          </div>
+          <div class="tl-role">Technical Lead &amp; Backend Developer</div>
+          <p class="tl-body">
+            Developed HubSpot cartridge from scratch — full design, build, and unit testing. Managed integrations with Apple Pay, 
+            Klarna, PayPal Express, DIS, and HubSpot. Led code reviews, builds, and replication processes.
+          </p>
+          <div class="tl-env"><span>SFRA</span> · ISML · JavaScript · jQuery · Ajax · Eclipse</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-meta">
+            <span class="tl-company">Johnny's Selected Seeds</span>
+            <span class="tl-period">Nov 2020 – Apr 2021</span>
+          </div>
+          <div class="tl-role">Technical Lead</div>
+          <p class="tl-body">
+            Managed CyberSource v19.5.2 and PayPal Express Checkout integrations. Led technical documentation, development, 
+            and client interfacing.
+          </p>
+          <div class="tl-env"><span>SFCC</span> · ISML · JavaScript · jQuery · Ajax</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-meta">
+            <span class="tl-company">Pendleton Woolen Mills</span>
+            <span class="tl-period">Mar 2019 – Nov 2020</span>
+          </div>
+          <div class="tl-role">Technical Lead</div>
+          <p class="tl-body">
+            Managed integrations with NetSuite OMS, AvaTax, Solupay, Google Tag Manager, and PayPal. 
+            Led architecture design documentation and client requirements.
+          </p>
+          <div class="tl-env"><span>SFCC</span> · ISML · JavaScript · jQuery · Ajax</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-meta">
+            <span class="tl-company">Pureology &amp; Pureology-Pro</span>
+            <span class="tl-period">Jul 2018 – Jun 2019</span>
+          </div>
+          <div class="tl-role">Technical Lead</div>
+          <p class="tl-body">
+            Code reviews, builds, and replication management. Collaborated with team on technical issues and delivery.
+          </p>
+          <div class="tl-env"><span>SFCC</span> · ISML · JavaScript · jQuery · Ajax</div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-meta">
+            <span class="tl-company">Gore</span>
+            <span class="tl-period">May 2018 – Jul 2018</span>
+          </div>
+          <div class="tl-role">Team Member</div>
+          <p class="tl-body">
+            Implemented Google Tag Manager and managed build and code replication processes.
+          </p>
+          <div class="tl-env"><span>SFCC</span> · ISML · JavaScript · jQuery · Ajax</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <p class="section-label">// Academic Background</p>
+      <h2 class="section-title">Education</h2>
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="edu-icon">🎓</div>
+          <div>
+            <div class="edu-degree">Master of Computer Application (MCA) · Computer Science</div>
+            <div class="edu-school">ISBM Chhattisgarh University</div>
+          </div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-icon">📘</div>
+          <div>
+            <div class="edu-degree">Bachelor of Computer Application (BCA) · Computer Science</div>
+            <div class="edu-school">Davanagere University</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="border-top: none; padding-top: 0;">
+      <div class="contact-bar">
+        <div>
+          <div class="contact-line">Let's work together<span>.</span></div>
+          <div class="contact-email">vinaymd93@gmail.com</div>
+        </div>
+        <a href="mailto:vinaymd93@gmail.com" class="btn btn-primary">Send Email →</a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrapper">
+      © 2026 Vinay · Built with HTML &amp; hosted on GitHub Pages ·
+      <a href="https://vinayvini.github.io/sfcc-bm-quicklinks-privacy/" style="color: var(--accent); text-decoration: none;">⚡ Extension Privacy Policy</a>
+    </div>
+  </footer>
+
+</body>
+</html>
