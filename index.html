@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vinay M D — Senior SFCC Developer & Solution Architect</title>
-<meta name="description" content="Senior SFCC Developer & Solution Architect with 10+ years of experience building scalable e-commerce platforms on Salesforce Commerce Cloud.">
+<title>Vinay M D — Senior SFCC Developer & Senior Technical Architect</title>
+<meta name="description" content="Senior SFCC Developer & Senior Technical Architect with 10+ years of experience building scalable e-commerce platforms on Salesforce Commerce Cloud.">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,6 +23,9 @@
     --accent-border: rgba(56, 189, 248, 0.2);
     --green: #4ade80;
     --green-dim: rgba(74, 222, 128, 0.12);
+    --gold: #fbbf24;
+    --gold-dim: rgba(251, 191, 36, 0.12);
+    --gold-border: rgba(251, 191, 36, 0.3);
     --navbar-bg: rgba(21, 29, 46, 0.92);
   }
 
@@ -40,6 +43,9 @@
     --accent-border: rgba(2, 132, 199, 0.18);
     --green: #16a34a;
     --green-dim: rgba(22, 163, 74, 0.1);
+    --gold: #b45309;
+    --gold-dim: rgba(180, 83, 9, 0.08);
+    --gold-border: rgba(180, 83, 9, 0.25);
     --navbar-bg: rgba(248, 250, 252, 0.92);
   }
 
@@ -273,6 +279,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .proj h3 {
@@ -307,6 +315,22 @@
   @keyframes pulse-dot {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
+  }
+
+  /* ── AWARD BADGE (gold) ── */
+  .award-badge {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
   }
 
   .proj .type {
@@ -439,6 +463,12 @@
     transition: background 0.3s;
   }
 
+  .highlight-chip.gold {
+    background: var(--gold-dim);
+    color: var(--gold);
+    border-color: var(--gold-border);
+  }
+
   /* ── SKILLS ── */
   .skill-grid {
     display: grid;
@@ -536,7 +566,7 @@
     color: var(--text);
   }
 
-  .awards-section { margin-top: 32px; }
+  .awards-section { margin-top: 0; }
 
   .aw-row {
     display: flex;
@@ -554,6 +584,8 @@
     font-weight: 700;
     color: var(--accent);
   }
+
+  .aw-row.gold .aw-yr { color: var(--gold); }
 
   /* ── CERTIFICATIONS / TRAINING ── */
   .cert-row {
@@ -674,11 +706,11 @@
     .proj p { text-align: left; }
     .skill-grid { grid-template-columns: 1fr; }
     .skill-full { grid-column: auto; }
-    .navbar nav a { padding: 8px 6px; font-size: 11px; }
+    .navbar nav a { padding: 8px 5px; font-size: 10.5px; }
     .edu-card { flex-direction: column; align-items: flex-start; gap: 4px; }
     .contact-details { flex-direction: column; gap: 20px; }
     .container { padding: 0 20px; }
-    .navbar-inner { padding: 0 16px; }
+    .navbar-inner { padding: 0 12px; }
     .back-to-top { bottom: 20px; right: 20px; }
     .proj { padding: 20px; }
     .aw-row { gap: 12px; }
@@ -707,6 +739,7 @@
         <a href="#project">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
+        <a href="#recognition">Recognition</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -724,7 +757,7 @@
   <div class="hero" id="about">
     <div class="hero-label">Senior SFCC Developer & Solution Architect</div>
     <h1>Vinay M D</h1>
-    <p class="desc">10+ years building scalable e-commerce platforms on Salesforce Commerce Cloud. I architect solution, lead complex integrations, mentor development teams, and build developer tools for the SFCC ecosystem. Currently serving as the sole senior SFCC specialist supporting 40+ developers across multiple teams.</p>
+    <p class="desc">10+ years building scalable e-commerce platforms on Salesforce Commerce Cloud. I architect solutions, lead complex integrations, mentor development teams, and build developer tools for the SFCC ecosystem — now extending into AI-powered commerce tooling with MCP servers and agentic applications. Currently serving as the sole senior SFCC specialist supporting 40+ developers across multiple teams.</p>
     <div class="hero-contacts">
       <a href="https://www.linkedin.com/in/vinayprince" target="_blank">LinkedIn ↗</a>
       <!-- <a href="https://github.com/vinayvini" target="_blank">GitHub ↗</a> -->
@@ -743,7 +776,7 @@
       <div class="stat-key">Sites</div>
     </div>
     <div class="stat">
-      <div class="stat-val">30+</div>
+      <div class="stat-val">50+</div>
       <div class="stat-key">Ext. Users</div>
     </div>
     <div class="stat">
@@ -751,14 +784,64 @@
       <div class="stat-key">Code Reviews</div>
     </div>
     <div class="stat">
-      <div class="stat-val">230+</div>
-      <div class="stat-key">Training Hrs</div>
+      <div class="stat-val">2nd</div>
+      <div class="stat-key">AMER · AI Hackathon</div>
     </div>
   </div>
 
   <!-- ── FEATURED PROJECTS ── -->
   <section id="project">
     <div class="sec-head">Featured Projects</div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h3>Personalization Performance Doctor</h3>
+        <div class="award-badge">🏆 2nd Place · AMER</div>
+      </div>
+      <div class="type">AI Diagnostic Agent · Bloomreach Loomi Connect Global Hackathon</div>
+      <p>An AI-powered diagnostic agent that analyzes how well a storefront's personalization is actually performing — built in five days for the Bloomreach Loomi Connect Hackathon alongside full client commitments. The submission included a working diagnostic agent, a live product listing page, an eight-module analytics dashboard, and an agentic reasoning interface with streaming explanations. I led the technical architecture: the MCP integration layer pulling live Bloomreach Engagement data, the AI scoring engine, and the agentic tool-usage patterns — recognized with a special mention for technical leadership. Out of 80+ teams globally, the submission was recognized as 2nd place in the AMER region.</p>
+      <div class="metrics">
+        <div>
+          <div class="metric-val">2nd</div>
+          <div class="metric-lbl">AMER Region</div>
+        </div>
+        <div>
+          <div class="metric-val">80+</div>
+          <div class="metric-lbl">Teams Globally</div>
+        </div>
+        <div>
+          <div class="metric-val">5</div>
+          <div class="metric-lbl">Days to Build</div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag">Next.js 14</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">Bloomreach Engagement</span>
+        <span class="tag">MCP Integration</span>
+        <span class="tag">Loomi AI</span>
+        <span class="tag">Agentic UI</span>
+        <span class="tag">Playwright E2E</span>
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-head">
+        <h3>SFCC BM Price Console</h3>
+        <div class="live-badge">Live</div>
+      </div>
+      <div class="type">Custom Business Manager Cartridge · Merchant Pricing Tool</div>
+      <p>A custom Business Manager cartridge that gives merchants safe, self-service price management without touching price book XML feeds. Supports inline price editing, bulk CSV import with validation, and MAP (minimum advertised price) compliance guardrails. Every change is captured in a full audit trail backed by custom objects with 90-day retention, complemented by a nightly export job and a daily HTML email digest summarizing all price activity. Demoed to the client's merchandising team and shipped to appreciation — turning a multi-step developer workflow into a one-screen merchant operation.</p>
+      <div class="tags">
+        <span class="tag">BM Cartridge</span>
+        <span class="tag">ISML</span>
+        <span class="tag">Custom Objects</span>
+        <span class="tag">Jobs Framework</span>
+        <span class="tag">CSV Bulk Import</span>
+        <span class="tag">MAP Compliance</span>
+        <span class="tag">Audit Trail</span>
+      </div>
+    </div>
 
     <div class="proj">
       <div class="proj-head">
@@ -769,8 +852,12 @@
       <p>A productivity Chrome extension I designed and built from scratch for SFCC developers, QA engineers, and merchants. Surfaces instant quick-links to Business Manager modules, storefront environments, and developer shortcuts — all configurable per SFCC instance. Strategically positioned to fill the gap left by Salesforce's deprecated Storefront Toolkit, evolving into a comprehensive developer dashboard for SFCC teams.</p>
       <div class="metrics">
         <div>
-          <div class="metric-val">30+</div>
+          <div class="metric-val">50+</div>
           <div class="metric-lbl">Active Users</div>
+        </div>
+        <div>
+          <div class="metric-val">11</div>
+          <div class="metric-lbl">Countries</div>
         </div>
       </div>
       <div class="tags">
@@ -816,8 +903,10 @@
           <h3>Bounteous (Accolite)</h3>
           <div class="role">Technical Architect</div>
           <div class="client-info">Client: Petmeds — 3 sites · Team: 45+</div>
-          <p>Leading SFRA platform implementation from scratch. Designed architecture for Signifyd fraud detection system, managed end-to-end integrations with Elavon, Afterpay, PayPal, and Apple Pay. Led SFCC OMS integration earning client appreciation. Built the SFCC BM QuickLinks Chrome extension and sandbox management dashboard. Responsible for requirement analysis, technical documentation, estimations, and 5,000+ code reviews. Involved in Bloomreach content management architecture and SCAPI POC development.</p>
+          <p>Leading SFRA platform implementation from scratch. Designed architecture for Signifyd fraud detection system, managed end-to-end integrations with Elavon, Afterpay, PayPal, and Apple Pay. Led SFCC OMS integration earning client appreciation. Built and shipped the BM Price Console cartridge — a merchant-facing pricing tool with audit trail and MAP guardrails — to client appreciation. Led the technical build of an AI personalization diagnostic agent for the Bloomreach Loomi Connect Hackathon, recognized as 2nd place in the AMER region among 80+ global teams. Also built the SFCC BM QuickLinks Chrome extension, sandbox management dashboard, and a custom SFCC MCP server wrapping OCAPI Data APIs. Responsible for requirement analysis, technical documentation, estimations, and 5,000+ code reviews.</p>
           <div class="highlights">
+            <span class="highlight-chip gold">🏆 2nd Place AMER — Loomi Connect Hackathon</span>
+            <span class="highlight-chip">BM Price Console shipped</span>
             <span class="highlight-chip">New site with Zero-bug production release</span>
             <span class="highlight-chip">Chrome Extension shipped</span>
             <span class="highlight-chip">76% infra cost savings</span>
@@ -831,6 +920,8 @@
             <span class="tag">Elavon</span>
             <span class="tag">Signifyd</span>
             <span class="tag">Bloomreach</span>
+            <span class="tag">MCP</span>
+            <span class="tag">Next.js</span>
           </div>
         </div>
       </div>
@@ -987,26 +1078,28 @@
       </div>
 
       <div class="skill-box">
-        <h4>Testing & Tools</h4>
+        <h4>AI Engineering</h4>
         <ul class="skill-list">
-          <li>Chai & Mocha Framework</li>
-          <li>Unit Test Case Writing</li>
-          <li>Git Version Control</li>
-          <li>Build Suite</li>
-          <li>Eclipse / UX Studio</li>
-          <li>Google Tag Manager</li>
+          <li>MCP Server Development (OCAPI / SCAPI)</li>
+          <li>Agentic AI Application Architecture</li>
+          <li>Bloomreach Loomi / Engagement APIs</li>
+          <li>Next.js 14 App Router / TypeScript</li>
+          <li>AI Scoring & Reasoning Pipelines</li>
+          <li>Playwright E2E Automation</li>
+          <li>Vercel Deployment & Edge</li>
         </ul>
       </div>
 
       <div class="skill-box">
-        <h4>Exploring & Growing</h4>
+        <h4>Testing & Tools</h4>
         <ul class="skill-list">
-          <li>React / Next.js</li>
-          <li>Headless Commerce Architecture</li>
-          <li>SFCC–SFSC (Service Cloud) Integration</li>
-          <li>SLAS Authentication Flows</li>
-          <li>AI-powered Developer Tools</li>
-          <li>LangGraph / Multi-agent Systems</li>
+          <li>Chai & Mocha Framework</li>
+          <li>Unit Test Case Writing</li>
+          <li>Playwright</li>
+          <li>Git Version Control</li>
+          <li>Build Suite</li>
+          <li>Eclipse / UX Studio</li>
+          <li>Google Tag Manager</li>
         </ul>
       </div>
 
@@ -1037,26 +1130,22 @@
     </div>
   </section>
 
-  <!-- ── EDUCATION ── -->
-  <section id="education">
-    <div class="sec-head">Education</div>
-    <div class="edu-card">
-      <div>
-        <h3>Master of Computer Application (MCA)</h3>
-        <p>ISBM Chhattisgarh University · Computer Science</p>
-      </div>
-      <div class="year">2022</div>
-    </div>
-    <div class="edu-card">
-      <div>
-        <h3>Bachelor of Computer Application (BCA)</h3>
-        <p>Davanagere University · Computer Science</p>
-      </div>
-      <div class="year">2014</div>
-    </div>
-
+  <!-- ── RECOGNITION ── -->
+  <section id="recognition">
+    <div class="sec-head">Recognition & Awards</div>
     <div class="awards-section">
-      <div class="sec-head" style="margin-top: 40px;">Recognition & Awards</div>
+      <div class="aw-row gold">
+        <span class="aw-yr">2026</span>
+        <span>🏆 2nd Place, AMER Region — Bloomreach Loomi Connect Global AI Hackathon (Personalization Performance Doctor, 80+ teams globally)</span>
+      </div>
+      <div class="aw-row gold">
+        <span class="aw-yr">2026</span>
+        <span>Special mention for technical leadership — Loomi Connect Hackathon team recognition</span>
+      </div>
+      <div class="aw-row">
+        <span class="aw-yr">2026</span>
+        <span>Client appreciation — BM Price Console merchant pricing cartridge (Petmeds)</span>
+      </div>
       <div class="aw-row">
         <span class="aw-yr">2025</span>
         <span>Zero-bug production release appreciation — New site launch</span>
@@ -1101,6 +1190,25 @@
         <span class="cert-icon">🔍</span>
         <span>Conducted <strong style="color: var(--text-bright);">5,000+ code reviews</strong> in 6+ months</span>
       </div>
+    </div>
+  </section>
+
+  <!-- ── EDUCATION ── -->
+  <section id="education">
+    <div class="sec-head">Education</div>
+    <div class="edu-card">
+      <div>
+        <h3>Master of Computer Application (MCA)</h3>
+        <p>ISBM Chhattisgarh University · Computer Science</p>
+      </div>
+      <div class="year">2022</div>
+    </div>
+    <div class="edu-card">
+      <div>
+        <h3>Bachelor of Computer Application (BCA)</h3>
+        <p>Davanagere University · Computer Science</p>
+      </div>
+      <div class="year">2014</div>
     </div>
   </section>
 
